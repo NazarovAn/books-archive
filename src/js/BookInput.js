@@ -30,6 +30,8 @@ class BookInput {
         const newBook = {
           title: this.nameInput.value,
           text: this.typedTextEl.value,
+          addTime: Date.now(),
+          read: false,
         };
 
         this.archive.getNewBook(newBook);

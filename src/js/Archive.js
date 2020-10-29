@@ -1,4 +1,4 @@
-import Input from './Input';
+import Input from './BookInput';
 import ListItem from './ListItem';
 
 class Archive {
@@ -54,6 +54,8 @@ class Archive {
     this.getNewBook({
       title: json.title,
       text: json.text,
+      addTime: Date.now(),
+      read: false,
     });
   }
 }
