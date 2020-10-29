@@ -7,6 +7,7 @@ class ListItem {
     this.read = book.read;
     this.listEl = null;
     this.deleteBtn = null;
+    this.readBtn = null;
     this.createItemEl();
     this.addListners();
   }
@@ -15,6 +16,11 @@ class ListItem {
     this.deleteBtn.addEventListener('click', (ev) => {
       ev.preventDefault();
       this.deleteItem();
+    });
+
+    this.readBtn.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      this.toggleReadStatus();
     });
   }
 
@@ -27,8 +33,10 @@ class ListItem {
     this.listEl.innerHTML = `
       <span>${this.title}</span>
       <button class="delete-book-btn">&times;</button>
+      <button class="read-book-btn">Прочитано</button>
     `;
     this.deleteBtn = this.listEl.querySelector('.delete-book-btn');
+    this.readBtn = this.listEl.querySelector('.read-book-btn');
   }
 
   insertListItem(list) {
@@ -48,6 +56,27 @@ class ListItem {
     const storedBooks = JSON.parse(localStorage.getItem('BooksList'));
     const filteredBooks = storedBooks.filter((item) => item.id !== this.id);
     localStorage.setItem('BooksList', JSON.stringify(filteredBooks));
+  }
+
+  toggleReadStatus() {
+    const storedBooks = JSON.parse(localStorage.getItem('BooksList'));
+    const modifiedBooks = storedBooks.map((item) => {
+      if (item.id !== this.id) {
+        return item;
+      }
+
+      const book = item;
+      if (!item.read) {
+        book.read = true;
+      } else {
+        book.read = false;
+      }
+
+      return book;
+    });
+
+    localStorage.setItem('BooksList', JSON.stringify(modifiedBooks));
+    this.listEl.classList.toggle('read');
   }
 }
 

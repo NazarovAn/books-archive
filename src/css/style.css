@@ -93,7 +93,7 @@
   color: rgba(0,0,0,0.3)
 }
 
-
+.read-book-btn,
 .delete-book-btn {
   float: right;
   padding: 2px 4px;
