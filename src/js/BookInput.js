@@ -34,6 +34,7 @@ class BookInput {
           text: this.typedTextEl.value,
           addTime: Date.now(),
           read: false,
+          liked: false,
           id: getId(),
         };
 

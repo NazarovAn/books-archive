@@ -94,9 +94,14 @@
 }
 
 .read-book-btn,
-.delete-book-btn {
+.delete-book-btn,
+.like-book-btn {
   float: right;
   padding: 2px 4px;
+}
+
+.liked {
+  background-color: burlywood;
 }
 
 .read {

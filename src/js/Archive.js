@@ -5,6 +5,7 @@ import getId from './utils';
 class Archive {
   constructor() {
     this.allBooksList = document.querySelector('.all-books__list');
+    this.likedBooksList = document.querySelector('.favorites__list');
     this.booksArray = [];
     this.Input = new Input(this);
   }
@@ -30,8 +31,20 @@ class Archive {
   }
 
   makeNewListItem(book) {
-    const newItem = new ListItem(book);
-    newItem.insertListItem(this.allBooksList);
+    const newItem = new ListItem(book, this);
+    if (newItem.liked) {
+      this.insertToLikedBooks(newItem);
+      return;
+    }
+    this.insertToAllBooks(newItem);
+  }
+
+  insertToAllBooks(book) {
+    book.insertListItem(this.allBooksList);
+  }
+
+  insertToLikedBooks(book) {
+    book.insertListItem(this.likedBooksList);
   }
 
   printAllBooks() {
@@ -57,6 +70,7 @@ class Archive {
       text: json.text,
       addTime: Date.now(),
       read: false,
+      liked: false,
       id: getId(),
     });
   }
