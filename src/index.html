@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body class="page">
+
+  <form class="page__books-form">
+    <div class="books-form__radio-buttons">
+      <input type="radio" name="option" id="self" checked>
+      <label for="self">Написать самому</label><br>
+      <input type="radio" name="option" id="load">
+      <label for="load">Загрузить из файла</label>
+    </div>
+    <div class="books-form__variants">
+      <div class="load-file__variant hidden">
+        <input type="file" class="load-file__input" accept="text/plain" multiple></input><br>
+        <button type="submit" class="load-file__button">Загрузить...</button>
+      </div>
+      <div class="typed-text__variant active">
+        <label for="name">Название</label><br>
+        <input type="text" class="typed-text__name" id="name"><br>
+        <textarea class="typed-text__textarea" rows="10" cols="22" placeholder="Текст..."></textarea><br>
+        <button type="submit" class="typed-text__button">Загрузить...</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="page__books">
+    <div class="books__favorites">
+      <h4 class="books__heading">Мои любимые книги</h4>
+      <ul class="favorites__list"></ul>
+    </div>
+    <div class="books__all-books">
+      <h4 class="books__heading">Список книг</h4>
+      <ul class="all-books__list"></ul>
+    </div>
+    <div class="books__add-book">
+      <h4 class="books__heading">Добавить книгу</h4>
+      <div class="books__drop-zone"></div>
+    </div>
+  </div>
+
+  <div class="page__opened-book">
+    <h3 class="opened-book__title"></h3>
+    <p class="opened-book__text"></p>
+  </div>
+
+</body>
+</html>

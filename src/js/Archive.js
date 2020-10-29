@@ -1,0 +1,61 @@
+import Input from './Input';
+import ListItem from './ListItem';
+
+class Archive {
+  constructor() {
+    this.allBooksList = document.querySelector('.all-books__list');
+    this.booksArray = [];
+    this.Input = new Input(this);
+  }
+
+  init() {
+    this.loadStoredBooks();
+    this.printAllBooks();
+  }
+
+  loadStoredBooks() {
+    const storageList = JSON.parse(localStorage.getItem('BooksList'));
+    if (storageList) {
+      this.booksArray = [...storageList];
+      return;
+    }
+
+    this.booksArray = [];
+  }
+
+  saveToLocalStorage(book) {
+    this.booksArray.push(book);
+    localStorage.setItem('BooksList', JSON.stringify(this.booksArray));
+  }
+
+  makeNewListItem(book) {
+    const newItem = new ListItem(book);
+    newItem.insertListItem(this.allBooksList);
+  }
+
+  printAllBooks() {
+    this.booksArray.forEach((book) => {
+      this.makeNewListItem(book);
+    });
+  }
+
+  getNewBook(book) {
+    this.saveToLocalStorage(book);
+    this.makeNewListItem(book);
+  }
+
+  async uploadNewBook(book) {
+    const url = 'https://apiinterns.osora.ru/';
+    const resp = await fetch(url, {
+      method: 'POST',
+      body: book,
+    });
+    const json = await resp.json();
+    this.getNewBook({
+      title: json.title,
+      text: json.text,
+    });
+  }
+}
+
+export default Archive;

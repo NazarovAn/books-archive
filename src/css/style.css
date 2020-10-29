@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  padding-top: 40px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.books-form__radio-buttons {
+  padding-bottom: 10px;
+}
+
+.load-file__input,
+.typed-text__name,
+.typed-text__textarea {
+  margin-bottom: 10px;
+}
+
+.typed-text__name,
+.typed-text__textarea {
+  padding: 5px 10px;
+}
+
+.typed-text__textarea {
+  resize: none;
+}
+
+.favorites__list,
+.all-books__list {
+  list-style: none;
+}
+
+.hidden {
+  display: none;
+}
