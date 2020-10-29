@@ -1,5 +1,6 @@
 import Input from './BookInput';
 import ListItem from './ListItem';
+import getId from './utils';
 
 class Archive {
   constructor() {
@@ -56,6 +57,7 @@ class Archive {
       text: json.text,
       addTime: Date.now(),
       read: false,
+      id: getId(),
     });
   }
 }

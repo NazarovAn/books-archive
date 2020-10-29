@@ -1,3 +1,5 @@
+import getId from './utils';
+
 class BookInput {
   constructor(archive) {
     this.archive = archive;
@@ -32,6 +34,7 @@ class BookInput {
           text: this.typedTextEl.value,
           addTime: Date.now(),
           read: false,
+          id: getId(),
         };
 
         this.archive.getNewBook(newBook);

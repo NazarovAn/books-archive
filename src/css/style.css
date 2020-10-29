@@ -94,6 +94,10 @@
 }
 
 
+.delete-book-btn {
+  float: right;
+  padding: 2px 4px;
+}
 
 .read {
   opacity: 0.5;
