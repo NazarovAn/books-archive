@@ -16,6 +16,13 @@ class ListItem {
   }
 
   addListners() {
+    this.listEl.addEventListener('click', (ev) => {
+      if (ev.target === this.listEl) {
+        document.querySelector('.opened-book__title').textContent = this.title;
+        document.querySelector('.opened-book__text').textContent = this.text;
+      }
+    });
+
     this.deleteBtn.addEventListener('click', (ev) => {
       ev.preventDefault();
       this.deleteItem();
@@ -47,7 +54,7 @@ class ListItem {
     }
 
     this.listEl.innerHTML = `
-      <span>${this.title}</span>
+      <span class="list-book__title">${this.title}</span>
       <button class="delete-book-btn">&times;</button>
       <button class="read-book-btn">Прочитано</button>
       <button class="like-book-btn">${likedSymbl}</button>

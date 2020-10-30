@@ -19,15 +19,15 @@
 }
 
 .page__books-form {
-  flex-grow: 0;
+  width: 15%;
 }
 
 .page__books {
-  flex-grow: 1;
+  width: 30%;
 }
 
 .page__opened-book {
-  flex-grow: 2;
+  width: 50%;
 }
 
 .books-form__radio-buttons {
@@ -64,7 +64,7 @@
 
 .books-list__item,
 .books__heading,
-.books__drop-zone {
+.books__drop-area {
   padding: .5rem 1rem;
   border: 1px solid #ffffff;
   color: #ffffff;
@@ -76,17 +76,17 @@
 }
 
 .books-list__item,
-.books__drop-zone {
+.books__drop-area {
   background-color: rgb(173, 173, 173);
   color: black;
 }
 
-.books__drop-zone {
+.books__drop-area {
   min-height: 100px;
   position: relative;
 }
 
-.drop-zone__text {
+.drop-area__heading {
   position: absolute;
   top: 40%;
   left: calc(50% - 50px);
@@ -98,6 +98,15 @@
 .like-book-btn {
   float: right;
   padding: 2px 4px;
+}
+
+.opened-book__title,
+.opened-book__text {
+  padding: .5rem 1rem;
+}
+
+.list-book__title {
+  pointer-events: none;
 }
 
 .liked {

@@ -13,6 +13,8 @@ class BookInput {
     this.typedTextEl = this.typedTextBox.querySelector('.typed-text__textarea');
     this.loadTypedBtn = this.typedTextBox.querySelector('.typed-text__button');
 
+    this.dropArea = document.querySelector('.books__drop-area');
+
     this.addListners();
   }
 
@@ -45,17 +47,38 @@ class BookInput {
 
     this.loadFileBtn.addEventListener('click', (ev) => {
       ev.preventDefault();
-      if (this.validateFileInput()) {
-        this.loadFileInput.files.forEach(async (item) => {
-          const newBook = new FormData();
-          newBook.append('login', item.name);
-          newBook.append('file', item);
-          await this.archive.uploadNewBook(newBook);
-        });
-
-        this.clearInputs();
-      }
+      this.uploadFiles();
     });
+
+    this.dropArea.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      this.loadFileInput.click();
+      this.radioLoad.click();
+    });
+
+    this.dropArea.addEventListener('dragover', (evt) => {
+      evt.preventDefault();
+    });
+
+    this.dropArea.addEventListener('drop', (ev) => {
+      ev.preventDefault();
+      const { files } = ev.dataTransfer;
+      this.loadFileInput.files = files;
+      this.uploadFiles();
+    });
+  }
+
+  uploadFiles() {
+    if (this.validateFileInput()) {
+      this.loadFileInput.files.forEach(async (item) => {
+        const newBook = new FormData();
+        newBook.append('login', item.name);
+        newBook.append('file', item);
+        await this.archive.uploadNewBook(newBook);
+      });
+
+      this.clearInputs();
+    }
   }
 
   validateTextInput() {
