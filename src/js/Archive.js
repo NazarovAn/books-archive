@@ -1,4 +1,5 @@
 import Input from './BookInput';
+import EditForm from './EditForm';
 import ListItem from './ListItem';
 import { getId, sortBooks } from './utils';
 
@@ -6,11 +7,18 @@ class Archive {
   constructor() {
     this.allBooksList = document.querySelector('.all-books__list');
     this.likedBooksList = document.querySelector('.favorites__list');
+    this.reader = document.querySelector('.page__opened-book');
     this.booksArray = [];
-    this.Input = new Input(this);
+    this.input = new Input(this);
+    this.editForm = new EditForm(this);
   }
 
   init() {
+    this.loadStoredBooks();
+  }
+
+  redrawLists() {
+    this.clearLists();
     this.loadStoredBooks();
   }
 
@@ -61,6 +69,14 @@ class Archive {
   getNewBook(book) {
     this.saveToLocalStorage(book);
     this.makeNewListItem(book);
+    this.redrawLists();
+  }
+
+  getEditedBook(book) {
+    this.booksArray = this.booksArray.filter((item) => item.id !== book.id);
+    this.saveToLocalStorage(book);
+    this.makeNewListItem(book);
+    this.redrawLists();
   }
 
   async uploadNewBook(book) {
@@ -78,6 +94,11 @@ class Archive {
       liked: false,
       id: getId(),
     });
+  }
+
+  openBook(book) {
+    this.reader.querySelector('.opened-book__title').textContent = book.title;
+    this.reader.querySelector('.opened-book__text').textContent = book.text;
   }
 }
 

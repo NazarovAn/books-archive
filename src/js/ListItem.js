@@ -12,6 +12,7 @@ class ListItem {
     this.finishedBtn = null;
     this.readBtn = null;
     this.likeBtn = null;
+    this.editBtn = null;
     this.draged = null;
     this.createItemEl();
     this.addListners();
@@ -42,8 +43,7 @@ class ListItem {
 
     this.readBtn.addEventListener('click', (ev) => {
       ev.preventDefault();
-      document.querySelector('.opened-book__title').textContent = this.title;
-      document.querySelector('.opened-book__text').textContent = this.text;
+      this.archive.openBook(this);
     });
 
     this.deleteBtn.addEventListener('click', (ev) => {
@@ -54,13 +54,17 @@ class ListItem {
     this.finishedBtn.addEventListener('click', (ev) => {
       ev.preventDefault();
       this.toggleReadStatus();
-      this.archive.clearLists();
-      this.archive.loadStoredBooks();
+      this.archive.redrawLists();
     });
 
     this.likeBtn.addEventListener('click', (ev) => {
       ev.preventDefault();
       this.toggleLikedStatus();
+    });
+
+    this.editBtn.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      this.archive.editForm.openEditForm(this);
     });
   }
 
@@ -83,12 +87,14 @@ class ListItem {
       <button class="delete-book-btn">&times;</button>
       <button class="finished-book-btn">Прочитано</button>
       <button class="read-book-btn">Читать</button>
+      <button class="edit-book-btn">&#10000;</button>
       <button class="like-book-btn">${likedSymbl}</button>
     `;
     this.deleteBtn = this.listEl.querySelector('.delete-book-btn');
     this.finishedBtn = this.listEl.querySelector('.finished-book-btn');
     this.readBtn = this.listEl.querySelector('.read-book-btn');
     this.likeBtn = this.listEl.querySelector('.like-book-btn');
+    this.editBtn = this.listEl.querySelector('.edit-book-btn');
   }
 
   insertListItem(list) {
@@ -161,6 +167,8 @@ class ListItem {
       this.likeBtn.innerHTML = '&star;';
       this.moveToAllList();
     }
+
+    this.archive.redrawLists();
   }
 
   moveToLikedList() {

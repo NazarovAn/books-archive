@@ -94,6 +94,7 @@
   color: rgba(0,0,0,0.3)
 }
 
+.edit-book-btn,
 .read-book-btn,
 .finished-book-btn,
 .delete-book-btn,
@@ -109,6 +110,38 @@
 
 .list-book__title {
   pointer-events: none;
+}
+
+.page__edit-form {
+  position: absolute;
+  width: 60%;
+  min-height: 400px;
+  margin: auto;
+  background-color: rgb(209, 209, 209);
+  border: 2px solid black;
+  border-radius: 25px;
+  padding: 2rem;
+}
+
+.edit-form__input,
+.edit-form__textarea,
+.edit-form__save-btn {
+  padding: .5rem 1rem;
+}
+
+.edit-form__input,
+.edit-form__textarea {
+  margin-bottom: .5rem;
+}
+
+.edit-form__textarea {
+  width: calc(100% - 2rem);
+  min-height: 250px;
+  resize: none;
+}
+
+.edit-form__save-btn {
+  float: right;
 }
 
 .liked {
