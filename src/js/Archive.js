@@ -25,6 +25,11 @@ class Archive {
     this.booksArray = [];
   }
 
+  clearLists() {
+    this.allBooksList.innerHTML = '';
+    this.likedBooksList.innerHTML = '';
+  }
+
   saveToLocalStorage(book) {
     this.booksArray.push(book);
     localStorage.setItem('BooksList', JSON.stringify(this.booksArray));

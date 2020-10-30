@@ -9,18 +9,41 @@ class ListItem {
     this.liked = book.liked;
     this.listEl = null;
     this.deleteBtn = null;
+    this.finishedBtn = null;
     this.readBtn = null;
     this.likeBtn = null;
+    this.draged = null;
     this.createItemEl();
     this.addListners();
   }
 
   addListners() {
-    this.listEl.addEventListener('click', (ev) => {
-      if (ev.target === this.listEl) {
-        document.querySelector('.opened-book__title').textContent = this.title;
-        document.querySelector('.opened-book__text').textContent = this.text;
+    document.addEventListener('mousemove', (ev) => {
+      ev.preventDefault();
+      if (this.draged) {
+        this.moveClonedElement(ev);
       }
+    });
+
+    document.addEventListener('mouseup', (ev) => {
+      ev.preventDefault();
+      if (this.draged) {
+        this.deleteClonedElement();
+        this.showListEl();
+        this.insertDraged(ev);
+      }
+    });
+
+    this.listEl.addEventListener('mousedown', (ev) => {
+      if (ev.target === this.listEl) {
+        this.cloneElement(ev);
+      }
+    });
+
+    this.readBtn.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      document.querySelector('.opened-book__title').textContent = this.title;
+      document.querySelector('.opened-book__text').textContent = this.text;
     });
 
     this.deleteBtn.addEventListener('click', (ev) => {
@@ -28,10 +51,10 @@ class ListItem {
       this.deleteItem();
     });
 
-    this.readBtn.addEventListener('click', (ev) => {
+    this.finishedBtn.addEventListener('click', (ev) => {
       ev.preventDefault();
       this.toggleReadStatus();
-      this.listEl.parentElement.innerHTML = '';
+      this.archive.clearLists();
       this.archive.loadStoredBooks();
     });
 
@@ -58,10 +81,12 @@ class ListItem {
     this.listEl.innerHTML = `
       <span class="list-book__title">${this.title}</span>
       <button class="delete-book-btn">&times;</button>
-      <button class="read-book-btn">Прочитано</button>
+      <button class="finished-book-btn">Прочитано</button>
+      <button class="read-book-btn">Читать</button>
       <button class="like-book-btn">${likedSymbl}</button>
     `;
     this.deleteBtn = this.listEl.querySelector('.delete-book-btn');
+    this.finishedBtn = this.listEl.querySelector('.finished-book-btn');
     this.readBtn = this.listEl.querySelector('.read-book-btn');
     this.likeBtn = this.listEl.querySelector('.like-book-btn');
   }
@@ -144,6 +169,42 @@ class ListItem {
 
   moveToAllList() {
     this.archive.insertToAllBooks(this);
+  }
+
+  cloneElement(ev) {
+    this.draged = this.listEl.cloneNode(true);
+    this.hideListEl();
+    this.draged.classList.add('draged');
+    document.body.append(this.draged);
+    this.moveClonedElement(ev);
+  }
+
+  hideListEl() {
+    this.listEl.classList.add('hidden');
+  }
+
+  showListEl() {
+    this.listEl.classList.remove('hidden');
+  }
+
+  // TODO
+  moveClonedElement(ev) {
+    this.draged.style.left = `${ev.clientX - this.draged.offsetWidth / 2}px`;
+    this.draged.style.top = `${ev.clientY - this.draged.offsetHeight / 2}px`;
+  }
+
+  deleteClonedElement() {
+    this.draged.parentElement.removeChild(this.draged);
+    this.draged = null;
+  }
+
+  insertDraged(ev) {
+    const insertList = ev.target.closest('.books-list');
+    if (insertList) {
+      if (!insertList.contains(this.listEl)) {
+        this.toggleLikedStatus();
+      }
+    }
   }
 }
 

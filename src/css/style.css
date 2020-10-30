@@ -8,6 +8,7 @@
   margin: auto;
   padding: 40px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -94,6 +95,7 @@
 }
 
 .read-book-btn,
+.finished-book-btn,
 .delete-book-btn,
 .like-book-btn {
   float: right;
@@ -115,6 +117,14 @@
 
 .read {
   opacity: 0.5;
+}
+
+.draged {
+  position: absolute;
+  z-index: 10;
+  opacity: 0.2;
+  width: 20%;
+  pointer-events: none;
 }
 
 .hidden {
