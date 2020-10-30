@@ -1,4 +1,4 @@
-import getId from './utils';
+import { getId } from './utils';
 
 class BookInput {
   constructor(archive) {

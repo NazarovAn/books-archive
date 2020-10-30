@@ -1,6 +1,6 @@
 import Input from './BookInput';
 import ListItem from './ListItem';
-import getId from './utils';
+import { getId, sortBooks } from './utils';
 
 class Archive {
   constructor() {
@@ -12,13 +12,13 @@ class Archive {
 
   init() {
     this.loadStoredBooks();
-    this.printAllBooks();
   }
 
   loadStoredBooks() {
     const storageList = JSON.parse(localStorage.getItem('BooksList'));
     if (storageList) {
-      this.booksArray = [...storageList];
+      this.booksArray = sortBooks([...storageList]);
+      this.printAllBooks();
       return;
     }
 

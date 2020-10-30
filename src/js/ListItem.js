@@ -31,6 +31,8 @@ class ListItem {
     this.readBtn.addEventListener('click', (ev) => {
       ev.preventDefault();
       this.toggleReadStatus();
+      this.listEl.parentElement.innerHTML = '';
+      this.archive.loadStoredBooks();
     });
 
     this.likeBtn.addEventListener('click', (ev) => {
