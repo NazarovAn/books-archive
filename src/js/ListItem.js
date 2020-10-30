@@ -14,6 +14,8 @@ class ListItem {
     this.likeBtn = null;
     this.editBtn = null;
     this.draged = null;
+    this.shiftX = null;
+    this.shiftY = null;
     this.createItemEl();
     this.addListners();
   }
@@ -32,11 +34,15 @@ class ListItem {
         this.deleteClonedElement();
         this.showListEl();
         this.insertDraged(ev);
+        this.shiftX = null;
+        this.shiftY = null;
       }
     });
 
     this.listEl.addEventListener('mousedown', (ev) => {
       if (ev.target === this.listEl) {
+        this.shiftX = ev.pageX - this.listEl.getBoundingClientRect().left;
+        this.shiftY = ev.pageY - this.listEl.getBoundingClientRect().top;
         this.cloneElement(ev);
       }
     });
@@ -195,10 +201,9 @@ class ListItem {
     this.listEl.classList.remove('hidden');
   }
 
-  // TODO
   moveClonedElement(ev) {
-    this.draged.style.left = `${ev.clientX - this.draged.offsetWidth / 2}px`;
-    this.draged.style.top = `${ev.clientY - this.draged.offsetHeight / 2}px`;
+    this.draged.style.left = `${ev.clientX - this.shiftX}px`;
+    this.draged.style.top = `${ev.clientY - this.shiftY}px`;
   }
 
   deleteClonedElement() {
